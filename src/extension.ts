@@ -1,31 +1,28 @@
 'use strict';
 import * as vscode from 'vscode';
-import { HclClient } from './hclClient';
+import { HCL } from './hcl';
 
-export function activate(context: vscode.ExtensionContext) {
-
+export async function activate(context: vscode.ExtensionContext) {
     let config = vscode.workspace.getConfiguration('hclfmt');
-    let client = new HclClient(config);
-    let formatDoc = (doc: vscode.TextDocument) => {
-        client.formatFile(doc.fileName).catch((err) => {
+    let formatter = new HCL(config);
+
+    let fmt = (doc: vscode.TextDocument) => {
+        formatter.document(doc.fileName).catch((err) => {
             vscode.window.showErrorMessage("hclfmt: error " + err);
         });
     };
 
-    vscode.workspace.onDidSaveTextDocument(formatDoc);
+    vscode.workspace.onDidSaveTextDocument(fmt);
 
-    let disposable = vscode.commands.registerCommand('extension.hclfmt', () => {
+    // apply the format operation on save event.
+    context.subscriptions.push(vscode.commands.registerCommand('extension.hclfmt', () => {
         // get the current active document and 
         // and apply the formater now.
         let editor = vscode.window.activeTextEditor;
         if (editor) {
-            formatDoc(editor.document);
+            fmt(editor.document);
         }
-    });
-
-    // apply the format operation on save event.
-
-    context.subscriptions.push(disposable);
+    }));
 }
 
 export function deactivate() {

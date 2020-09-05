@@ -1,9 +1,9 @@
 {
     "name": "hclfmt",
     "displayName": "hclfmt",
-    "description": "Autoformat hcl files",
-    "version": "1.0.1",
-    "publisher": "sourcepirate",
+    "description": "Autoformat HCL files",
+    "version": "1.1.0",
+    "publisher": "jeroenrinzema",
     "engines": {
         "vscode": "^1.26.0"
     },
@@ -39,7 +39,7 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "test": "npm run compile"
     },
     "devDependencies": {
         "typescript": "^2.6.1",

@@ -21,7 +21,7 @@ export class HCL {
      */
     async document(path: string): Promise<Number> {
         let process = cp.spawn(this.hclPath, ["-w", path]);
-        return new Promise((resolve, reject) => {
+        let result = await new Promise<Number>((resolve, reject) => {
             process.on('close', (code: Number) => {
                 if (code !== 0) {
                     reject(code);
@@ -30,5 +30,7 @@ export class HCL {
                 }
             });
         })
+
+        return result
     }
 }

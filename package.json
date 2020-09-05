@@ -2,6 +2,10 @@
     "name": "hclfmt",
     "displayName": "hclfmt",
     "description": "Autoformat HCL files",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jeroenrinzema/vscode-hclfmt.git"
+    },
     "version": "1.1.0",
     "publisher": "jeroenrinzema",
     "engines": {
